@@ -6,3 +6,8 @@ Web: Spring Boot 3.2.9
 H2 Database: 자료를 저장하기 위한 데이터 베이스  
 Mustache: 화면을 만들기 위한 도구  
 Spring Data JPA: 데이터베이스를 쉽게 다룰 수 있는 도구  
+
+--이슈 기록--   
+8080포트 사용 중인지 확인 명령어 : netstat -ano | findstr :8080  
+이미 사용 중이라면  
+application.properties 파일에 server.port=포트 번호  
