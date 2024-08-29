@@ -29,11 +29,11 @@ public class ArticleController {
 
         //1. DTO를 엔티티로 변환
         Article article = form.toEntity();
-        log.info(form.toString());
+        log.info(article.toString());
 
         //2. 리파지터리로 엔티티를 DB에 저장
         Article saved = articleRepository.save(article);
-        log.info(form.toString());
+        log.info(saved.toString());
 
         return "";
     }
