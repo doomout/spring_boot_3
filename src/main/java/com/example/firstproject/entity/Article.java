@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -12,6 +13,7 @@ import lombok.ToString;
 @NoArgsConstructor //기본 생성자 추가
 @ToString
 @Entity //엔티티 선언
+@Getter //외부에서 객체의 데이터를 읽을 때 사용
 public class Article {
     @Id //엔티티의 대표값 지정
 
