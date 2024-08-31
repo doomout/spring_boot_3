@@ -17,6 +17,11 @@ public class MemberController {
     @Autowired // 스프링이 자동으로 MemberRepository 객체를 주입해줍니다.
     MemberRepository memberRepository;
 
+    @GetMapping("members/new")
+    public String newMemberForm() {
+        return "members/new";
+    }
+
     @GetMapping("/signup") // "/signup" URL로 GET 요청이 오면 이 메서드가 실행됩니다.
     public String signUpPage() {
         // 회원가입 페이지로 이동하기 위한 뷰 이름을 반환합니다.
@@ -32,7 +37,7 @@ public class MemberController {
         // Member 엔티티를 데이터베이스에 저장하고, 저장된 엔티티를 반환받습니다.
         Member saved = memberRepository.save(member);
         log.info(saved.toString());
-        return "";
+        return "redirect:/members/" + saved.getId();
     }
     //특정 회원 조회
     @GetMapping("/members/{id}")
