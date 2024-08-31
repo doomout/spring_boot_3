@@ -11,10 +11,12 @@
     {{#articleList}} <!--모델에 등록되어 있는 데이터를 출력-->
     <tr>
         <th>{{id}}</th>
-        <td>{{title}}</td>
+        <td><a href="/articles/{{id}}">{{title}}</a></td>  <!--제목에 상세보기 링크 연결-->
         <td>{{content}}</td>
     </tr>
     {{/articleList}}
     </tbody>
 </table>
+
+<a href="/articles/new">New Article</a>
 {{>layouts/footer}}
