@@ -54,20 +54,29 @@ public class MemberController {
         return "members/index";
     }
 
+    //id를 매개변수로 데이터 받아오기
     @GetMapping("/members/{id}/edit")
     public String edit(@PathVariable Long id, Model model){
+        //1.수정할 데이터 가져오기
         Member memberEntity = memberRepository.findById(id).orElse(null);
+        //2.모델에 데이터 등록하기
         model.addAttribute("member",memberEntity);
+        //3.수정 페이지 설정
         return "members/edit";
     }
+    //매개변수로 DTO 받아오기
     @PostMapping("/members/update")
     public String update(MemberForm form) {
         log.info(form.toString());
+        //1.DTO를 엔티티로 변환하기
         Member memberEntity = form.toEntity();
+        //2-1.DB에서 기존 데이터 가져오기
         Member target = memberRepository.findById(memberEntity.getId()).orElse(null);
+        //2-2.기존 데이터가 있다면 갱신하기
         if (target != null) {
             memberRepository.save(memberEntity);
         }
+        //3.수정 결과 페이지로 리다이렉트 하기
         return "redirect:/members/" + memberEntity.getId();
     }
 }

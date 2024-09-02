@@ -1,8 +1,8 @@
 {{>layouts/header}}
-
+<!--수정 페이지-->
 {{#member}}
 <form class="container" action="/members/update" method="post">
-    <input type="hidden" name="id" value="{{id}}">
+    <input type="hidden" name="id" value="{{id}}"> <!--id도 같이 전송하기 위해 숨기고 전송-->
     <div class="mb-3">
         <label class="form-label">이메일</label>
         <input type="email" class="form-control" name="email" value="{{email}}">
