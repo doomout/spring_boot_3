@@ -13,4 +13,9 @@ Spring Data JPA: 데이터베이스를 쉽게 다룰 수 있는 도구
 8080포트 사용 중인지 확인 명령어 : netstat -ano | findstr :8080  
 이미 사용 중이라면  
 application.properties 파일에 server.port=포트 번호    
-레이아웃 템플릿 삽입할 때 {{>파일경로/파일명}}   
+
+h2 DB 사용 설정  
+spring.h2.console.enabled=true  
+
+더미 데이터 넣을 때(스프링 부트 2.5 이상에서 사용)  
+spring.jpa.defer-datasource-initialization=true  
