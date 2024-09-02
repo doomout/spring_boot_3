@@ -1,5 +1,5 @@
 {{>layouts/header}}
-
+<!--회원 가입 페이지-->
 <form class="container" action="/join" method="post">
     <div class="mb-3">
         <label class="form-label">이메일</label>
@@ -9,8 +9,8 @@
         <label class="form-label">비밀번호</label>
         <input type="password" class="form-control" name="password">
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <a href="/members">Back</a>
+    <button type="submit" class="btn btn-primary">가입완료</button>
+    <a href="/members">뒤로</a><!--목록 페이지로 이동-->
 </form>
 
 {{>layouts/footer}}
