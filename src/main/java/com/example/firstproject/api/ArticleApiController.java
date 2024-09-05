@@ -1,11 +1,10 @@
 package com.example.firstproject.api;
 
+import com.example.firstproject.dto.ArticleForm;
 import com.example.firstproject.entity.Article;
 import com.example.firstproject.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +22,11 @@ public class ArticleApiController {
         return articleRepository.findById(id).orElse(null);
     }
     //POST
+    @PostMapping("/api/articles")
+    public Article create(@RequestBody ArticleForm dto) { //@RequestBody:요청시 body에 실어 보내는 데이터를 메개변수로 받아올 수 있다.
+        Article article = dto.toEntity();
+        return articleRepository.save(article);
+    }
     //PATCH
     //DELETE
 }
