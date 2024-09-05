@@ -46,7 +46,8 @@ public class ArticleApiController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); //잘못된 응답
         }
         //4.업데이트 및 정상 응답(200)하기
-        Article updated = articleRepository.save(article); //article 엔티티 DB에 저장
+        target.patch(article); //기존 데이터에 새 데이터 붙이기
+        Article updated = articleRepository.save(target); //수정 내용 DB에 최종 저장
         return ResponseEntity.status(HttpStatus.OK).body(updated); //정상 응답 
     }
     //DELETE

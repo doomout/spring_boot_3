@@ -22,4 +22,13 @@ public class Article {
 
     @Column //content 필드 선언, DB 테이블의 content 열과 연결됨
     private String content;
+
+    //수정할 내용이 있는 경우에만 동작
+    public void patch(Article article) {
+        //갱신 값이 있으면 갱신
+        if(article.title != null)
+            this.title = article.title;
+        if(article.content != null)
+            this.content = article.content;
+    }
 }
