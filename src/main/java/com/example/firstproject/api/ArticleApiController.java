@@ -50,5 +50,17 @@ public class ArticleApiController {
         Article updated = articleRepository.save(target); //수정 내용 DB에 최종 저장
         return ResponseEntity.status(HttpStatus.OK).body(updated); //정상 응답 
     }
-    //DELETE
+    //DELETE(삭제)
+    @DeleteMapping("/api/articles/{id}")
+    public ResponseEntity<Article> delete(@PathVariable Long id) {
+        //1.대상 찾기
+        Article target = articleRepository.findById(id).orElse(null);
+        //2.잘못된 요청 처리하기
+        if(target == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        //3.대상 삭제하기
+        articleRepository.delete(target);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }
