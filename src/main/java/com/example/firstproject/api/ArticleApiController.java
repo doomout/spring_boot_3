@@ -5,6 +5,7 @@ import com.example.firstproject.service.ArticleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -15,15 +16,17 @@ public class ArticleApiController {
     @Autowired //게시글 리파지터리 주입
     private ArticleService articleService;
 
-    //GET(읽기)
+    //GET(전체 읽기)
     @GetMapping("/api/articles")
     public List<Article> index() {
         return articleService.index();
     }
-//    @GetMapping("/api/articles/{id}")
-//    public Article show(@PathVariable Long id) {
-//        return articleRepository.findById(id).orElse(null);
-//    }
+
+    //GET(id별 읽기)
+    @GetMapping("/api/articles/{id}")
+    public Article show(@PathVariable Long id) {
+        return articleService.show(id);
+    }
 //    //POST(생성)
 //    @PostMapping("/api/articles")
 //    public Article create(@RequestBody ArticleForm dto) { //@RequestBody:요청시 body에 실어 보내는 데이터를 메개변수로 받아올 수 있다.
