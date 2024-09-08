@@ -15,11 +15,12 @@ public class CoffeeApiController {
     @Autowired //리파지터리 주입
     private CoffeeRepository coffeeRepository;
 
-    //GET(읽기)
+    //GET(전체 조회)
     @GetMapping("/api/coffees")
     public Iterable<Coffee> index() {
         return coffeeRepository.findAll();
     }
+    //GET(id별 조회)
     @GetMapping("/api/coffees/{id}")
     public ResponseEntity<Coffee> show(@PathVariable Long id) {
         Coffee coffee = coffeeRepository.findById(id).orElse(null);
@@ -31,25 +32,9 @@ public class CoffeeApiController {
     @PostMapping("/api/coffees")
     public ResponseEntity<Coffee> create(@RequestBody CoffeeDto coffeeDto) {
         Coffee coffee = coffeeDto.toEntity();
-        if(coffee.getId() != null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
         Coffee created = coffeeRepository.save(coffee);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
     //PATCH(수정)
-    @PatchMapping("/api/coffees/{id}")
-    public ResponseEntity<Coffee> update(@PathVariable Long id, @RequestBody CoffeeDto coffeeDto) {
-        Coffee coffee = coffeeDto.toEntity();
-        log.info("id: {}, coffee: {}", id, coffee.toString());
-        Coffee target = coffeeRepository.findById(id).orElse(null);
-        if(target == null || id != coffee.getId()) {
-            log.info("잘못된 요청! id: {}, coffee: {}", id. coffee.toString());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
-        target.patch(coffee);
-        Coffee updated = coffeeRepository.save(target);
-        return ResponseEntity.status(HttpStatus.OK).body(updated);
-    }
     //DELETE(삭제)
 }
