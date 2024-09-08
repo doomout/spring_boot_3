@@ -22,8 +22,9 @@ public class CoffeeApiController {
     }
     //GET(id별 조회)
     @GetMapping("/api/coffees/{id}")
-    public ResponseEntity<Coffee> show(@PathVariable Long id) {
+    public ResponseEntity<Coffee> show(@PathVariable Long id) { //id를 매개 변수로 받아오기
         Coffee coffee = coffeeRepository.findById(id).orElse(null);
+        //데이터가 있으면 ? OK 신호 : BAD_REQUEST 신호
         return (coffee != null) ?
                 ResponseEntity.status(HttpStatus.OK).body(coffee) :
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -32,6 +33,10 @@ public class CoffeeApiController {
     @PostMapping("/api/coffees")
     public ResponseEntity<Coffee> create(@RequestBody CoffeeDto coffeeDto) {
         Coffee coffee = coffeeDto.toEntity();
+        //null 처리 추가
+        if(coffee.getId() != null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
         Coffee created = coffeeRepository.save(coffee);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
@@ -55,4 +60,17 @@ public class CoffeeApiController {
         return ResponseEntity.status(HttpStatus.OK).body(updated);
     }
     //DELETE(삭제)
+    @DeleteMapping("/api/coffees/{id}")
+    public ResponseEntity<Coffee> delete(@PathVariable Long id) {
+        //1.삭제 대상 찾기
+        Coffee target = coffeeRepository.findById(id).orElse(null);
+        //2.대상이 없으면 BAD_REQUEST 처리 
+        if(target == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        //3.대상이 있으면 삭제 처리
+        coffeeRepository.delete(target);
+        //4.OK 처리
+        return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
 }
