@@ -18,8 +18,10 @@ public class CoffeeApiController {
     //GET(전체 조회)
     @GetMapping("/api/coffees")
     public Iterable<Coffee> index() {
+
         return coffeeRepository.findAll();
     }
+
     //GET(id별 조회)
     @GetMapping("/api/coffees/{id}")
     public ResponseEntity<Coffee> show(@PathVariable Long id) {
@@ -28,6 +30,7 @@ public class CoffeeApiController {
                 ResponseEntity.status(HttpStatus.OK).body(coffee) :
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
+
     //POST(생성)
     @PostMapping("/api/coffees")
     public ResponseEntity<Coffee> create(@RequestBody CoffeeDto coffeeDto) {
@@ -35,6 +38,7 @@ public class CoffeeApiController {
         Coffee created = coffeeRepository.save(coffee);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
+
     //PATCH(수정)
     @PatchMapping("/api/coffees/{id}")
     public ResponseEntity<Coffee> update(@PathVariable Long id, @RequestBody CoffeeDto coffeeDto) {
@@ -44,7 +48,7 @@ public class CoffeeApiController {
         //2.타깃 조회하기
         Coffee target = coffeeRepository.findById(id).orElse(null);
         //3.잘못된 요청 처리하기
-        if(target == null) {
+        if(target == null || id != coffee.getId()) {
             log.info("잘못된 요청! id: {}, coffee: {}", id, coffee.toString());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
@@ -54,5 +58,18 @@ public class CoffeeApiController {
         //5.정상 응답(200)하기
         return ResponseEntity.status(HttpStatus.OK).body(updated);
     }
+
     //DELETE(삭제)
+    @DeleteMapping("/api/coffees/{id}")
+    public ResponseEntity<Coffee> delete(@PathVariable Long id) {
+        //1.대상 찾기
+        Coffee target = coffeeRepository.findById(id).orElse(null);
+        //2.잘못된 요청 처리하기
+        if(target == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        //3.대상 삭제하기
+        coffeeRepository.delete(target);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }
