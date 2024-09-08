@@ -19,3 +19,9 @@ spring.h2.console.enabled=true
 
 더미 데이터 넣을 때(스프링 부트 2.5 이상에서 사용)  
 spring.jpa.defer-datasource-initialization=true  
+ 
+REST API 연습 사이트  
+https://jsonplaceholder.typicode.com/
+
+크롬 확장 프로그램   
+https://chromewebstore.google.com/detail/talend-api-tester-free-ed/aejoelaoggembcahagimdiliamlcdmfm?hl=ko&utm_source=ext_sidebar
