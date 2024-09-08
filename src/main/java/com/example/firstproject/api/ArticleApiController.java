@@ -1,12 +1,13 @@
 package com.example.firstproject.api;
 
+import com.example.firstproject.dto.ArticleForm;
 import com.example.firstproject.entity.Article;
 import com.example.firstproject.service.ArticleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,12 +28,16 @@ public class ArticleApiController {
     public Article show(@PathVariable Long id) {
         return articleService.show(id);
     }
-//    //POST(생성)
-//    @PostMapping("/api/articles")
-//    public Article create(@RequestBody ArticleForm dto) { //@RequestBody:요청시 body에 실어 보내는 데이터를 메개변수로 받아올 수 있다.
-//        Article article = dto.toEntity();
-//        return articleRepository.save(article);
-//    }
+
+    //POST(생성)
+    //@RequestBody:요청시 body에 실어 보내는 데이터를 메개변수로 받아올 수 있다.
+    @PostMapping("/api/articles")
+    public ResponseEntity<Article> create(@RequestBody ArticleForm dto) { 
+        Article created = articleService.create(dto); //서비스로 게시글 생성
+        return (created != null) ? //생성하면 정상, 실패하면 오류 응답
+                ResponseEntity.status(HttpStatus.OK).body(created) :
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
 //    //PATCH(수정)
 //    @PatchMapping("/api/articles/{id}")
 //    //ResponseEntity<> 클라이언트 요청 오류를 반환하기 위해 사용
