@@ -44,7 +44,7 @@ public class CoffeeApiController {
         //2.타깃 조회하기
         Coffee target = coffeeRepository.findById(id).orElse(null);
         //3.잘못된 요청 처리하기
-        if(target == null) {
+        if(target == null || id != coffee.getId()) {
             log.info("잘못된 요청! id: {}, coffee: {}", id, coffee.toString());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
