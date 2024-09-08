@@ -36,5 +36,23 @@ public class CoffeeApiController {
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
     //PATCH(수정)
+    @PatchMapping("/api/coffees/{id}")
+    public ResponseEntity<Coffee> update(@PathVariable Long id, @RequestBody CoffeeDto coffeeDto) {
+        //1.DTO -> Entity 변환
+        Coffee coffee = coffeeDto.toEntity();
+        log.info("id: {}, coffee: {}", id, coffee.toString());
+        //2.타깃 조회하기
+        Coffee target = coffeeRepository.findById(id).orElse(null);
+        //3.잘못된 요청 처리하기
+        if(target == null) {
+            log.info("잘못된 요청! id: {}, coffee: {}", id, coffee.toString());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        //4.업데이트 하기
+        target.patch(coffee);
+        Coffee updated = coffeeRepository.save(target);
+        //5.정상 응답(200)하기
+        return ResponseEntity.status(HttpStatus.OK).body(updated);
+    }
     //DELETE(삭제)
 }
