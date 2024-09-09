@@ -38,25 +38,15 @@ public class ArticleApiController {
                 ResponseEntity.status(HttpStatus.OK).body(created) :
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
-//    //PATCH(수정)
-//    @PatchMapping("/api/articles/{id}")
-//    //ResponseEntity<> 클라이언트 요청 오류를 반환하기 위해 사용
-//    public ResponseEntity<Article> update(@PathVariable Long id, @RequestBody ArticleForm dto) {
-//        //1.DTO -> 엔티티 변환하기
-//        Article article = dto.toEntity();
-//        log.info("id: {}, article: {}", id, article.toString());
-//        //2.타딧 조회하기
-//        Article target = articleRepository.findById(id).orElse(null);
-//        //3.잘못된 요청 처리하기
-//        if(target == null || id != article.getId()) {
-//            log.info("잘못된 요청! id: {}, article: {}", id, article.toString());
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); //잘못된 응답
-//        }
-//        //4.업데이트 및 정상 응답(200)하기
-//        target.patch(article); //기존 데이터에 새 데이터 붙이기
-//        Article updated = articleRepository.save(target); //수정 내용 DB에 최종 저장
-//        return ResponseEntity.status(HttpStatus.OK).body(updated); //정상 응답
-//    }
+    //PATCH(수정)
+    @PatchMapping("/api/articles/{id}")
+    //ResponseEntity<> 클라이언트 요청 오류를 반환하기 위해 사용
+    public ResponseEntity<Article> update(@PathVariable Long id, @RequestBody ArticleForm dto) {
+        Article updated = articleService.update(id, dto); //서비스를 통해 게시글 수정
+        return (updated != null) ? //수정되면 정상, 안 되면 오류 응답
+                ResponseEntity.status(HttpStatus.OK).body(updated) :
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
 //    //DELETE(삭제)
 //    @DeleteMapping("/api/articles/{id}")
 //    public ResponseEntity<Article> delete(@PathVariable Long id) {
