@@ -28,4 +28,16 @@ public class CoffeeService {
         }
         return coffeeRepository.save(coffee);
     }
+
+    public Coffee update(Long id, CoffeeDto coffeeDto) {
+        Coffee coffee = coffeeDto.toEntity();
+        log.info("id: {}, coffee: {}", id, coffee.toString());
+        Coffee target = coffeeRepository.findById(id).orElse(null);
+        if(target == null || id != coffee.getId()) {
+            log.info("잘못된 요청! id: {}, coffee: {}", id, coffee.toString());
+            return null;
+        }
+        target.patch(coffee);
+        return coffeeRepository.save(target);
+    }
 }
