@@ -48,17 +48,12 @@ public class CoffeeApiController {
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
-//    //DELETE(삭제)
-//    @DeleteMapping("/api/coffees/{id}")
-//    public ResponseEntity<Coffee> delete(@PathVariable Long id) {
-//        //1.대상 찾기
-//        Coffee target = coffeeRepository.findById(id).orElse(null);
-//        //2.잘못된 요청 처리하기
-//        if(target == null) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-//        }
-//        //3.대상 삭제하기
-//        coffeeRepository.delete(target);
-//        return ResponseEntity.status(HttpStatus.OK).build();
-//    }
+    //DELETE(삭제)
+    @DeleteMapping("/api/coffees/{id}")
+    public ResponseEntity<Coffee> delete(@PathVariable Long id) {
+        Coffee deleted = coffeeService.delete(id);
+        return (deleted != null) ?
+                ResponseEntity.status(HttpStatus.NO_CONTENT).build() :
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
 }
