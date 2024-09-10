@@ -1,5 +1,6 @@
 package com.example.firstproject.service;
 
+import com.example.firstproject.dto.CoffeeDto;
 import com.example.firstproject.entity.Coffee;
 import com.example.firstproject.repository.CoffeeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -20,5 +21,11 @@ public class CoffeeService {
         return coffeeRepository.findById(id).orElse(null);
     }
 
-
+    public Coffee create(CoffeeDto coffeeDto) {
+        Coffee coffee = coffeeDto.toEntity();
+        if(coffee.getId() != null) {
+            return null;
+        }
+        return coffeeRepository.save(coffee);
+    }
 }

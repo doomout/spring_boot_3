@@ -1,14 +1,13 @@
 package com.example.firstproject.api;
 
+import com.example.firstproject.dto.CoffeeDto;
 import com.example.firstproject.entity.Coffee;
 import com.example.firstproject.service.CoffeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -30,15 +29,16 @@ public class CoffeeApiController {
                 ResponseEntity.status(HttpStatus.CREATED).body(created) :
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
-//
-//    //POST(생성)
-//    @PostMapping("/api/coffees")
-//    public ResponseEntity<Coffee> create(@RequestBody CoffeeDto coffeeDto) {
-//        Coffee coffee = coffeeDto.toEntity();
-//        Coffee created = coffeeRepository.save(coffee);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(created);
-//    }
-//
+
+    //POST(생성)
+    @PostMapping("/api/coffees")
+    public ResponseEntity<Coffee> create(@RequestBody CoffeeDto coffeeDto) {
+        Coffee created = coffeeService.create(coffeeDto);
+        return (created != null) ?
+                ResponseEntity.status(HttpStatus.CREATED).body(created) :
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
 //    //PATCH(수정)
 //    @PatchMapping("/api/coffees/{id}")
 //    public ResponseEntity<Coffee> update(@PathVariable Long id, @RequestBody CoffeeDto coffeeDto) {
