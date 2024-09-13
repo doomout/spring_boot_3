@@ -20,8 +20,8 @@ class CommentRepositoryTest {
     @Test
     @DisplayName("특정 게시글의 모든 댓글 조회") //메서드명을 바꾸는 것이 아님
     void findByArticleId() {
+        //Case 1: 4번 게시글의 모든 댓글 조회
         {
-            //Case 1: 4번 게시글의 모든 댓글 조회
             //1.입력 데이터 준비
             Long articleId = 4L;
 
@@ -41,8 +41,8 @@ class CommentRepositoryTest {
             //4.비교 및 검증
             assertEquals(expected.toString(), comments.toString(), "4번 글의 모든 댓글 출력!");
         }
+        //Case 2: 1번 게시글의 모든 댓글 조회
         {
-            //Case 2: 1번 게시글의 모든 댓글 조회
             //1.입력 데이터 준비
             Long articleId = 1L;
 
@@ -55,6 +55,51 @@ class CommentRepositoryTest {
 
             //4.비교 및 검증
             assertEquals(expected.toString(), comments.toString(), "1번 글은 댓글이 없음!");
+        }
+        //Case 3: 9번 게시글의 모든 댓글 조회
+        {
+            //1.입력 데이터 준비
+            Long articleId = 9L; //현재 없는 게시 번호임
+
+            //2.실제 데이터
+            List<Comment> comments = commentRepository.findByArticleId(articleId);
+
+            //3.예상 데이터
+            Article article = null;
+            List<Comment> expected = Arrays.asList();
+
+            //4.비교 및 검증
+            assertEquals(expected.toString(), comments.toString(), "9번 게시글이 없으니 댓글도 없어야 함!");
+        }
+        //Case 4: 999번 게시글의 모든 댓글 조회
+        {
+            //1.입력 데이터 준비
+            Long articleId = 999L; //현재 없는 게시 번호임
+
+            //2.실제 데이터
+            List<Comment> comments = commentRepository.findByArticleId(articleId);
+
+            //3.예상 데이터
+            Article article = null;
+            List<Comment> expected = Arrays.asList();
+
+            //4.비교 및 검증
+            assertEquals(expected.toString(), comments.toString(), "999번 게시글이 없으니 댓글도 없어야 함!");
+        }
+        //Case 5: -1번 게시글의 모든 댓글 조회
+        {
+            //1.입력 데이터 준비
+            Long articleId = -1L; //존재할 수 없는 번호
+
+            //2.실제 데이터
+            List<Comment> comments = commentRepository.findByArticleId(articleId);
+
+            //3.예상 데이터
+            Article article = null;
+            List<Comment> expected = Arrays.asList();
+
+            //4.비교 및 검증
+            assertEquals(expected.toString(), comments.toString(), "-1번 게시글은 없으니, 댓글도 없어야 한다!");
         }
     }
 
@@ -74,6 +119,42 @@ class CommentRepositoryTest {
             List<Comment> expected = Arrays.asList(a,b,c);
             //4.비교 및 검증
             assertEquals(expected.toString(), comments.toString(), "김재벌의 모든 댓글을 출력!");
+        }
+        //Case 2: "이재벌"의 모든 댓글 조회
+        {
+            //1.입력 데이터 준비
+            String nickname = "이재벌";
+            //2.실제 데이터
+            List<Comment> comments = commentRepository.findByNickname(nickname);
+            //3.예상 데이터
+            Comment a = new Comment(3L, new Article(4L,"당신의 인생 영화는?", "댓글 고"), nickname, "라라랜드");
+            Comment b = new Comment(6L, new Article(5L,"당신의 소울 푸드는?", "댓글 고고"), nickname, "돈가스");
+            Comment c = new Comment(9L, new Article(6L,"당신의 취미는?", "댓글 고고고"), nickname, "독서");
+            List<Comment> expected = Arrays.asList(a,b,c);
+            //4.비교 및 검증
+            assertEquals(expected.toString(), comments.toString(), "이재벌의 모든 댓글을 출력!");
+        }
+        //Case 3: null의 모든 댓글 조회
+        {
+            //1.입력 데이터 준비
+            String nickname = null;
+            //2.실제 데이터
+            List<Comment> comments = commentRepository.findByNickname(nickname);
+            //3.예상 데이터
+            List<Comment> expected = Arrays.asList();
+            //4.비교 및 검증
+            assertEquals(expected.toString(), comments.toString(), "null의 모든 댓글을 출력!");
+        }
+        //Case 4: ""의 모든 댓글 조회
+        {
+            //1.입력 데이터 준비
+            String nickname = "";
+            //2.실제 데이터
+            List<Comment> comments = commentRepository.findByNickname(nickname);
+            //3.예상 데이터
+            List<Comment> expected = Arrays.asList();
+            //4.비교 및 검증
+            assertEquals(expected.toString(), comments.toString(), "\"\"의 모든 댓글을 출력!");
         }
     }
 }
