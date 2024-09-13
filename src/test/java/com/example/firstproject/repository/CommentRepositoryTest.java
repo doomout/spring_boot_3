@@ -137,16 +137,24 @@ class CommentRepositoryTest {
         //Case 3: null의 모든 댓글 조회
         {
             //1.입력 데이터 준비
+            String nickname = null;
             //2.실제 데이터
+            List<Comment> comments = commentRepository.findByNickname(nickname);
             //3.예상 데이터
+            List<Comment> expected = Arrays.asList();
             //4.비교 및 검증
+            assertEquals(expected.toString(), comments.toString(), "null의 모든 댓글을 출력!");
         }
         //Case 4: ""의 모든 댓글 조회
         {
             //1.입력 데이터 준비
+            String nickname = "";
             //2.실제 데이터
+            List<Comment> comments = commentRepository.findByNickname(nickname);
             //3.예상 데이터
+            List<Comment> expected = Arrays.asList();
             //4.비교 및 검증
+            assertEquals(expected.toString(), comments.toString(), "\"\"의 모든 댓글을 출력!");
         }
     }
 }
