@@ -11,6 +11,11 @@ Spring Data JPA: 데이터베이스를 쉽게 다룰 수 있는 도구
 뷰 템플릿 : 부트스트랩 5.0.2  
 리팩터리 : 롬복 1.18.34
 
+### 1.게시판 본문
+![1](https://github.com/user-attachments/assets/9579c814-9664-4c88-99f4-b9a288d21d96)
+
+### 2.게시판 댓글
+![2](https://github.com/user-attachments/assets/a4ff8f60-f428-46e1-8b3d-3bb9197ab8be)
 --이슈 기록--   
 8080포트 사용 중인지 확인 명령어 : netstat -ano | findstr :8080  
 이미 사용 중이라면  
@@ -41,3 +46,4 @@ spring.datasource.password=암호
 
 spring.jpa.hibernate.ddl-auto=update  
 spring.datasource.initialization-mode=never  
+
