@@ -11,6 +11,9 @@
                         data-bs-nickname="{{nickname}}"
                         data-bs-body="{{body}}"
                         data-bs-article-id="{{articleId}}">댓글 수정</button>
+                <!--댓글 삭제 버튼-->
+                <button type="button" class="btn btn-sm btn-outline-danger comment-delete-btn"
+                        data-comment-id="{{id}}">댓글 삭제</button>
             </div>
             <div class="card-body"> <!--댓긋 본문 영역 설정-->
                 {{body}}
@@ -101,4 +104,21 @@
         });
     });
 }
+</script>
+<!--댓글 삭제-->
+<script>
+    {
+        //삭제 버튼 선택
+        const commentDeleteBtns = document.querySelectorAll(".comment-delete-btn");
+        //삭제 버튼 이벤트 처리
+        commentDeleteBtns.forEach(btn => {
+            btn.addEventListener("click", (event) => {
+                //이벤트 발생 요소 선택
+                const commentDeleteBtn = event.target;
+                //삭제 댓글 id 가져오기
+                const commentId = commentDeleteBtn.getAttribute("data-comment-id");
+                console.log(`삭제 버튼이 클릭: ${commentId}번 댓글`);
+            });
+        });
+    }
 </script>
