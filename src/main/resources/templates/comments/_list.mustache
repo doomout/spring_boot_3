@@ -6,7 +6,11 @@
                 <!--Bootstrap 5.0.2: 모달 수정 버튼-->
                 <button type="button" class="btn btn-sm btn-outline-primary"
                         data-bs-toggle="modal"
-                        data-bs-target="#comment-edit-modal">댓글 수정</button>
+                        data-bs-target="#comment-edit-modal"
+                        data-bs-id="{{id}}"
+                        data-bs-nickname="{{nickname}}"
+                        data-bs-body="{{body}}"
+                        data-bs-article-id="{{articleId}}">댓글 수정</button>
             </div>
             <div class="card-body"> <!--댓긋 본문 영역 설정-->
                 {{body}}
@@ -28,7 +32,7 @@
                     <!--닉네임 입력-->
                     <div class="mb-3">
                         <label class="form-label">닉네임</label>
-                        <input type="text" class="form-control" id="comment-edit-modal">
+                        <input type="text" class="form-control" id="edit-comment-nickname">
                     </div>
                     <!--댓글 본문 입력-->
                     <div class="mb-3">
@@ -45,3 +49,24 @@
         </div>
     </div>
 </div>
+<script>
+    {
+        const commentEditModal = document.querySelector("#comment-edit-modal");
+        commentEditModal.addEventListener("show.bs.modal", function(event){
+            //1.트리거 버튼 선택
+            const triggerBtn = event.relatedTarget;
+
+            //2.데이터 가져오기
+            const id = triggerBtn.getAttribute("data-bs-id");
+            const nickname = triggerBtn.getAttribute("data-bs-nickname");
+            const body = triggerBtn.getAttribute("data-bs-body");
+            const articleId = triggerBtn.getAttribute("data-bs-article-id");
+
+            //3.수정 폼에 데이터 반영
+            document.querySelector("#edit-comment-nickname").value = nickname;
+            document.querySelector("#edit-comment-body").value = body;
+            document.querySelector("#edit-comment-id").value = id;
+            document.querySelector("#edit-comment-article-id").value = articleId;
+        });
+    }
+</script>
