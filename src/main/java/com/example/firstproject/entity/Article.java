@@ -1,10 +1,13 @@
 package com.example.firstproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor //기본 생성자 추가

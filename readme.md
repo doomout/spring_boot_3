@@ -1,9 +1,11 @@
 교제: 코딩 자율 학습 - 스프링 부트3 자바 백엔드 개발 입문  
 IDE : IntelliJ IDEA 2024.2.0.2 (Community Edition)   
 Java: openjdk version "17.0.12"   
-추가 개발 도구  
+
+--추가 개발 도구--  
 Web: Spring Boot 3.2.9  
-H2 Database: 자료를 저장하기 위한 데이터 베이스  
+H2 Database: 자료를 저장하기 위한 데이터 베이스(사용안함)  
+DB: PostgreSQL 16.4  
 Mustache: 화면을 만들기 위한 도구  
 Spring Data JPA: 데이터베이스를 쉽게 다룰 수 있는 도구  
 뷰 템플릿 : 부트스트랩 5.0.2  
@@ -18,10 +20,24 @@ h2 DB 사용 설정
 spring.h2.console.enabled=true  
 
 더미 데이터 넣을 때(스프링 부트 2.5 이상에서 사용)  
+resources/data.sql에 insert 문을 넣으면 실행시마다 자동 생성  
+application.properties 에서 추가   
 spring.jpa.defer-datasource-initialization=true  
  
 REST API 연습 사이트  
 https://jsonplaceholder.typicode.com/
 
 크롬 확장 프로그램   
-https://chromewebstore.google.com/detail/talend-api-tester-free-ed/aejoelaoggembcahagimdiliamlcdmfm?hl=ko&utm_source=ext_sidebar
+https://chromewebstore.google.com/detail/talend-api-tester-free-ed/aejoelaoggembcahagimdiliamlcdmfm?hl=ko&utm_source=ext_sidebar  
+
+#PostgreSQL 설정  
+##build.gradle  
+runtimeOnly 'org.postgresql:postgresql'
+
+##application.properties  
+spring.datasource.url=jdbc:postgresql://localhost:5432/DB명  
+spring.datasource.username=아이디  
+spring.datasource.password=암호  
+
+spring.jpa.hibernate.ddl-auto=update  
+spring.datasource.initialization-mode=never  
