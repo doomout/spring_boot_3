@@ -3,10 +3,45 @@
         <div class="card m-2" id="comments-{{id}}"> <!--댓글 카드 만들고 id 부여-->
             <div class="card-header"> <!--댓글 헤더 영역 설정-->
                 {{nickname}}
+                <!--Bootstrap 5.0.2: 모달 수정 버튼-->
+                <button type="button" class="btn btn-sm btn-outline-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#comment-edit-modal">댓글 수정</button>
             </div>
             <div class="card-body"> <!--댓긋 본문 영역 설정-->
                 {{body}}
             </div>
         </div>
     {{/commentDtos}}
+</div>
+<!-- Bootstrap 5.0.2: Modal -->
+<div class="modal fade" id="comment-edit-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">댓글 수정</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!--댓글 수정 폼-->
+                <form>
+                    <!--닉네임 입력-->
+                    <div class="mb-3">
+                        <label class="form-label">닉네임</label>
+                        <input type="text" class="form-control" id="comment-edit-modal">
+                    </div>
+                    <!--댓글 본문 입력-->
+                    <div class="mb-3">
+                        <label class="form-label">댓글 내용</label>
+                        <textarea type="text" class="form-control" rows="3" id="edit-comment-body"></textarea>
+                    </div>
+                    <!--히든 인풋-->
+                    <input type="hidden" id="edit-comment-id">
+                    <input type="hidden" id="edit-comment-article-id">
+                    <!--전송 버튼-->
+                    <button type="button" class="btn btn-primary" id="comment-update-btn">수정 완료</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
